@@ -1,0 +1,280 @@
+import * as THREE from 'three';
+import { TextureLoader, ZeroCurvatureEnding } from 'three'; 
+import { createRoof } from './roof';
+import { createSign } from './sign';
+import { createTable } from './table';
+import { createTelevision } from './television';
+
+const textureLoader = new TextureLoader();
+
+const standardMaterial = new THREE.MeshStandardMaterial({
+            color: '#c8e0d8',
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true,
+            side: THREE.DoubleSide
+        })
+
+const standardWrapMaterial = new THREE.MeshStandardMaterial({
+            color: '#1a1212',
+            roughness: 0.8,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        })
+
+function createFloor(x, z) {
+    let texture = textureLoader.load('/textures/buildings/house/pallet_floor_brick.png');
+
+    texture.repeat.set(x, z);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    return texture
+}
+
+
+function createInner() {
+    const innerGroup = new THREE.Group();
+
+    const innerRearUpper = new THREE.Mesh(
+        new THREE.PlaneGeometry(6.125, 2),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_rear_inner.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_rear_inner_alpha.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true,
+            side: THREE.DoubleSide 
+        })
+    );
+
+    innerRearUpper.position.y = 2.15;
+    innerRearUpper.position.z = -2.061;  
+
+    innerGroup.add(innerRearUpper);
+
+    const innerFrontUpper = new THREE.Mesh(
+        new THREE.PlaneGeometry(6.125, 2),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_front_inner.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_front_inner_alpha.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true,
+            side: THREE.DoubleSide 
+        })
+    );
+
+    innerFrontUpper.position.y = 2.15;
+    innerFrontUpper.position.z = 2.061;
+    
+    innerGroup.add(innerFrontUpper);
+
+    const innerLeftSide = new THREE.Mesh(
+        new THREE.PlaneGeometry(4.12, 2),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_side_inner.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true,
+            side: THREE.DoubleSide 
+        })
+    );
+
+    innerLeftSide.position.y = 2.15;
+    innerLeftSide.rotation.y = Math.PI / 2;
+    innerLeftSide.position.x = -1.82;
+
+    innerGroup.add(innerLeftSide);
+
+    const innerRightSide = new THREE.Mesh(
+        new THREE.PlaneGeometry(4.12, 2),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/inner/pallet_house_upper_side_inner.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true,
+            side: THREE.DoubleSide 
+        })
+    );
+
+    innerRightSide.position.y = 2.15;
+    innerRightSide.rotation.y = Math.PI / 2;
+    innerRightSide.position.x = 1.82;
+
+    innerGroup.add(innerRightSide);
+
+    return innerGroup;
+}
+
+function createUpperFurniture() {
+    const furnitureGroup = new THREE.Group();
+
+    const table = new createTable();
+    table.position.y = 1.45
+    table.position.z = -1.46
+    table.position.x = -.25
+    furnitureGroup.add(table);
+
+    const television = new createTelevision();
+    television.position.y = 1.45
+
+    furnitureGroup.add(television);
+    return furnitureGroup;
+
+}
+
+function createHouse(x, z) {
+    const house = new THREE.Group();
+
+    let floor1Materials = [
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_side.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_side.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        standardMaterial,
+        standardMaterial,
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_front.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_rear.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+    ]
+
+    let wrapMaterials = [
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_wrap_side.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_wrap_side.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        standardWrapMaterial,
+        standardWrapMaterial,
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_wrap_front.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_wrap_front.png'),
+            roughness: 0.8,
+            alphaTest: .5,
+            transparent: true
+        }),
+    ]
+
+    let floor2Materials = [
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_upper_side.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/pallet_house_upper_side_alpha.png'),
+            roughness: 0.8,
+            transparent: true,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_upper_side.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/pallet_house_upper_side_alpha.png'),
+            roughness: 0.8,
+            transparent: true,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        }),
+        null,
+        new THREE.MeshStandardMaterial({
+            map: createFloor(3.5, 3),
+            roughness: 0.8,
+            transparent: true,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_upper_front.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/pallet_house_upper_front_alpha.png'),
+            roughness: 0.8,
+            transparent: true,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        }),
+        new THREE.MeshStandardMaterial({
+            map: textureLoader.load('/textures/buildings/house/pallet_house_upper_rear.png'),
+            alphaMap: textureLoader.load('/textures/buildings/house/pallet_house_upper_rear_alpha.png'),
+            roughness: 0.8,
+            transparent: true,
+            alphaTest: .5,
+            side: THREE.DoubleSide
+        }),
+    ]
+    
+
+    const floor1 = new THREE.Mesh(
+        new THREE.BoxGeometry(6, 2, 4, 1),
+        floor1Materials,
+    )
+    floor1.castShadow = true;
+
+    const wrap = new THREE.Mesh(
+        new THREE.BoxGeometry(6.25, .25, 4.25, 1),
+        wrapMaterials
+    );
+    wrap.castShadow = true;
+    wrap.position.y = 1;
+
+    const floor2 = new THREE.Mesh(
+        new THREE.BoxGeometry(6.125, 2, 4.125, 1),
+        floor2Materials
+    );
+
+    const roof = createRoof({x: 3.65, y: .25, z: 4.5}, 1.9);
+
+    const sign = createSign()
+
+    sign.position.x = -3.7;
+    sign.position.y = -.5
+    sign.position.z = 1.8
+
+    floor2.castShadow = true;
+    floor2.position.y = 2.13;
+    
+    house.add(floor1, wrap, floor2, roof, sign, createInner(), createUpperFurniture());
+
+    house.position.y = 2.01
+    house.position.x = x;
+    house.position.z = z;
+
+    house.castShadow = true;
+
+    return house;
+};
+
+export function createHouses() {
+    const houses = new THREE.Group().add(
+        createHouse(-8.8, -10),
+        createHouse(5.5, -10),
+    );
+
+    return houses;
+    
+}
