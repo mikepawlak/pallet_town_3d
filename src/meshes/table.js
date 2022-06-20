@@ -206,12 +206,12 @@ export function createDinnerTable() {
   const table = new THREE.Group();
 
   const tableTop = new THREE.Mesh(
-    new THREE.BoxGeometry(1.75, 0.125, 1.75),
+    new THREE.BoxGeometry(1.5, 0.125, 1.5),
     dinnerTableTopMaterial
   );
 
   const tableBottom = new THREE.Mesh(
-    new THREE.BoxGeometry(1.5, 0.3, 1.5),
+    new THREE.BoxGeometry(1.3, 0.3, 1.3),
     dinnerTableBottomMaterial
   );
 

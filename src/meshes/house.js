@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import { TextureLoader, ZeroCurvatureEnding } from "three";
 import { createBookshelves } from "./bookshelf";
+import { createFlowerPot } from "./flowerpot";
 import { createRoof } from "./roof";
 import { createSign } from "./sign";
+import { createStairs } from "./stairs";
 import { createDinnerTable, createTable } from "./table";
 import { createTelevision } from "./television";
 
@@ -94,7 +96,7 @@ function createInner() {
   );
 
   innerLeftSide.position.y = 2.15;
-  innerLeftSide.rotation.y = Math.PI / 2;
+  innerLeftSide.rotation.y = -Math.PI / 2;
   innerLeftSide.position.x = -1.82;
 
   innerGroup.add(innerLeftSide);
@@ -117,6 +119,87 @@ function createInner() {
   innerRightSide.position.x = 1.82;
 
   innerGroup.add(innerRightSide);
+
+
+  const innerRear = new THREE.Mesh(
+    new THREE.PlaneGeometry(5.99, 2),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_rear_inner.png"
+      ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_rear_inner_alpha.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+
+
+  innerRear.position.z = -1.99;
+  innerRear.rotation.y = Math.PI;
+
+
+  innerGroup.add(innerRear);
+
+  const innerFront = new THREE.Mesh(
+    new THREE.PlaneGeometry(5.99, 2),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_front_inner.png"
+      ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_front_inner_alpha.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+
+
+  innerFront.position.z = 1.98;
+
+  innerGroup.add(innerFront);
+
+  const innerLeftSideLower = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.99, 2),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_side_inner.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+
+  innerLeftSideLower.rotation.y = -Math.PI / 2;
+  innerLeftSideLower.position.x = -2.99;
+
+  innerGroup.add(innerLeftSideLower);
+
+  const innerRightSideLower = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.99, 2),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/house/inner/pallet_house_side_inner.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+  );
+
+  innerRightSideLower.rotation.y = Math.PI / 2;
+  innerRightSideLower.position.x = 2.99;
+
+  innerGroup.add(innerRightSideLower);
 
   return innerGroup;
 }
@@ -142,21 +225,36 @@ function createLowerFurniture() {
 
   const table = new createDinnerTable();
   table.position.y = -0.7;
-  table.position.z = -1.46;
+
   table.position.x = -0.25;
 
   const television = new createTelevision();
-  television.position.y = -0.7;
+  television.position.y = -0.6;
+  television.position.z = -1.6;
 
   const shelvesLeft = createBookshelves(1);
-  shelvesLeft.position.y = -0.7;
-  shelvesLeft.position.x = -1;
+  shelvesLeft.position.y = -0.15;
+  shelvesLeft.position.x = -2.5;
+  shelvesLeft.position.z = -1.6;
 
-  const shelvesRight = createBookshelves(2);
-  shelvesRight.position.y = -0.7;
-  shelvesRight.position.x = 1;
 
-  furnitureGroup.add(table, television, shelvesRight, shelvesLeft);
+  const stairs = createStairs();
+  stairs.position.x = 2.83
+  stairs.position.y = -.62;
+  stairs.position.z = -1.4;
+
+  const flowerPotRight = createFlowerPot();
+  flowerPotRight.position.y = -.87;
+  flowerPotRight.position.x = 2.65
+  flowerPotRight.position.z = 1.5;
+
+  const flowerPotLeft = createFlowerPot();
+  flowerPotLeft.position.y = -.87;
+  flowerPotLeft.position.x = -2.65
+  flowerPotLeft.position.z = 1.5;
+
+
+  furnitureGroup.add(table, television, shelvesLeft, stairs, flowerPotRight, flowerPotLeft);
   return furnitureGroup;
 }
 
@@ -194,6 +292,9 @@ function createHouse(x, z) {
       map: textureLoader.load(
         "/textures/buildings/house/pallet_house_front.png"
       ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/house/pallet_house_front_alpha.png"
+      ),
       roughness: 0.8,
       alphaTest: 0.5,
       transparent: true,
@@ -202,6 +303,9 @@ function createHouse(x, z) {
     new THREE.MeshStandardMaterial({
       map: textureLoader.load(
         "/textures/buildings/house/pallet_house_rear.png"
+      ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/house/pallet_house_rear_alpha.png"
       ),
       roughness: 0.8,
       alphaTest: 0.5,
@@ -337,12 +441,12 @@ function createHouse(x, z) {
 
   house.add(
     floor1,
-    // wrap,
-    // floor2,
-    // roof,
-    // sign,
-    // createInner(),
-    // createUpperFurniture(),
+    wrap,
+    floor2,
+    roof,
+    sign,
+    createInner(),
+    createUpperFurniture(),
     createLowerFurniture()
   );
 

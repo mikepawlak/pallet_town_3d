@@ -64,12 +64,12 @@ function addFurniture(lab) {
 
     computerTable.position.y = -1.7;
     computerTable.position.x = -3.5;
-    computerTable.position.z = -3.5;
+    computerTable.position.z = -3.49;
     computerTable.castShadow = true;
 
     workTable.position.y = -1.7;
     workTable.position.x = -1.69;
-    workTable.position.z = -3.5;
+    workTable.position.z = -3.49;
     workTable.castShadow = true;
 
     pokeTable.position.y = -1.7;

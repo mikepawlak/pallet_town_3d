@@ -17,6 +17,8 @@ import { createLab } from "./meshes/lab";
 import { createStumps } from "./meshes/stump";
 import { createDinnerTable, createTable } from "./meshes/table";
 import { createTelevision } from "./meshes/television";
+import { createStairs } from "./meshes/stairs";
+import { createFlowerPot } from "./meshes/flowerpot";
 
 /**
  * Base
@@ -42,7 +44,8 @@ scene.add(
   createFlowers(),
   createFences(),
   createLab(),
-  createStumps()
+  createStumps(),
+  createStairs()
 );
 
 /**

@@ -1,9 +1,12 @@
+
 import * as THREE from 'three';
 import { TextureLoader } from 'three'; 
 import { createSign } from './sign';
 
+const textureLoader = new TextureLoader();
+
 const fenceSideTexture = new THREE.MeshStandardMaterial({
-    color: '#c8e0d8',
+    map: textureLoader.load('/textures/buildings/post_side.png'),
     roughness: 0.8,
     alphaTest: .5,
     side: THREE.DoubleSide
