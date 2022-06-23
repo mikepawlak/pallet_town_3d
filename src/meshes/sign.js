@@ -71,16 +71,21 @@ export function createSign() {
         new THREE.BoxGeometry(.25,1,.25),
         postMaterial
     );
+    pole.castShadow = true;
+    
 
     const banner = new THREE.Mesh(
         new THREE.BoxGeometry(.7,.75,.0625),
         bannerMaterial
     );
+    banner.castShadow = true;
 
     const bannerTop = new THREE.Mesh(
         new THREE.PlaneGeometry(.7,.0625),
         standardMaterial
     );
+    
+    bannerTop.castShadow = true;
 
     bannerTop.rotation.x = - Math.PI / 2;
     bannerTop.position.y = .33
@@ -93,6 +98,8 @@ export function createSign() {
         new THREE.BoxGeometry(.9,.125,.125),
         standardMaterial
     );
+
+    top.castShadow = true;
 
     top.position.x = -.44;
     top.position.y = .43;

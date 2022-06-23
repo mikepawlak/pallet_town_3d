@@ -3,7 +3,9 @@ import { TextureLoader } from 'three';
 import { createBookshelves } from './bookshelf';
 import { createDesktopComputer } from './desktopComputer';
 import { createRoof } from './roof';
+import { createPokeball } from './sprites';
 import { createTable } from './table';
+import { createTallGrass } from './tallGrass';
 
 const textureLoader = new TextureLoader();
 
@@ -57,6 +59,95 @@ let labMaterials = [
     }),
 ]
 
+function createInner() {
+  const innerGroup = new THREE.Group();
+
+  const innerLeftSide = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.99, 2.5),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_side_inner.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide
+    })
+  );
+
+  innerLeftSide.rotation.y = -Math.PI / 2;
+  innerLeftSide.position.x = -4.49;
+  innerLeftSide.position.y = -.6;
+
+  innerGroup.add(innerLeftSide);
+
+  const innerRightSide = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.99, 2.5),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_side_inner.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide
+    })
+  );
+
+  innerRightSide.rotation.y = Math.PI / 2;
+  innerRightSide.position.x = 4.49;
+  innerRightSide.position.y = -.6;
+
+  innerGroup.add(innerRightSide);
+
+
+  const innerRear = new THREE.Mesh(
+    new THREE.PlaneGeometry(8.99, 4),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_rear_inner.png"
+      ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_rear_inner_alpha.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide
+    })
+  );
+
+
+  innerRear.position.z = -3.99;
+  innerRear.rotation.y = Math.PI;
+
+
+  innerGroup.add(innerRear);
+
+  const innerFront = new THREE.Mesh(
+    new THREE.PlaneGeometry(8.99, 4),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_front_inner.png"
+      ),
+      alphaMap: textureLoader.load(
+        "/textures/buildings/lab/inner/pallet_lab_front_inner_alpha.png"
+      ),
+      roughness: 0.8,
+      alphaTest: 0.5,
+      transparent: true,
+      side: THREE.DoubleSide
+    })
+  );
+
+
+  innerFront.position.z = 3.99;
+
+  innerGroup.add(innerFront);
+
+  return innerGroup;
+}
+
 function addFurniture(lab) {
     const computerTable = createTable();
     const workTable = createTable();
@@ -105,10 +196,24 @@ function addFurniture(lab) {
         shelvesBack,
         shelvesLeft,
         shelvesRight,
-        computer
+        computer,
+        createInner()
         );
 
     return lab;
+}
+
+function addSprites() {
+    const sprites = new THREE.Group(); 
+    const ball = createPokeball();
+
+    ball.position.y = -1.4;
+    ball.position.z = -1.7;
+    ball.position.x = 1.6;
+
+    sprites.add(ball);
+
+    return sprites;
 }
 
 export function createLab() {
@@ -126,7 +231,7 @@ export function createLab() {
     let roof = createRoof({x: 6.85, y: .25, z: 8.5},3.5);
     roof.position.y = 2.06;
 
-    lab.add(labBuilding);
+    lab.add(labBuilding, roof, addSprites());
     
     lab.position.y = 3.02;
     lab.position.z = 6;
