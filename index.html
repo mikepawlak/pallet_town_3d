@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#121218" />
+    <meta
+      name="description"
+      content="Pallet Town — Three.js + Vue (Game Boy Color–style)"
+    />
+    <meta name="robots" content="index,follow" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <link rel="modulepreload" href="/src/main.js" />
+    <link rel="preload" as="image" href="/textures/furniture/bookshelf/bookshelf_side.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/textures/furniture/bookshelf/bookshelf_top.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/textures/furniture/bookshelf/bookshelf_front.png" fetchpriority="high" />
+
+    <title>Pallet Town — GBC</title>
+  </head>
+  <body>
+    <div class="gbc-frame">
+      <div id="app"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+  
+</html>

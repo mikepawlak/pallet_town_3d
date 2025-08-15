@@ -1,0 +1,20 @@
+:root{
+    --case:#007f87;
+    --case-dark:#055b61;
+    --bezel:#17171c;
+    --ink:#eef0f6;
+    --ink-soft:#cfd2da;
+    --led:#ff3b3b;
+    --frame-gap: clamp(16px,3.2vmin,28px);
+    --screen-ar: 1.2;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:10px;
+    --shadow-inset: inset 0 1px 0 rgba(255,255,255,.15), inset 0 -8px 16px rgba(0,0,0,.3);
+    --shadow-elev: 0 12px 28px rgba(0,0,0,.65);
+    --font-ui: ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    --font-mono: ui-monospace,SFMono-Regular,Menlo,Monaco,"Courier New",monospace;
+  }
+  html,body,#app{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
+  *{box-sizing:border-box}
+  
